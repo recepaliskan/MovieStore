@@ -3,3 +3,4 @@
 
 MovieStoreV4/Content/* linguist-vendored
 MovieStoreV4/Scripts/* linguist-vendored
+packages/PagedList.Mvc.4.5.0.0/Content/Content/* linguist-vendored
