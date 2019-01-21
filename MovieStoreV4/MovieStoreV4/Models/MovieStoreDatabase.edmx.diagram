@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="05800789327546ea978f86aa5c7da366" Name="Diagram1">
+        <EntityTypeShape EntityType="MovieStoreDBModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MovieStoreDBModel.tbl_Authorization" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MovieStoreDBModel.tbl_Category" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MovieStoreDBModel.tbl_Movie" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MovieStoreDBModel.tbl_MovieUser" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MovieStoreDBModel.tbl_User" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="MovieStoreDBModel.FK_tbl_User_tbl_Authorization" ManuallyRouted="false" />
+        <AssociationConnector Association="MovieStoreDBModel.FK_tbl_Movie_tbl_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="MovieStoreDBModel.FK_tbl_MovieUser_tbl_Movie" ManuallyRouted="false" />
+        <AssociationConnector Association="MovieStoreDBModel.FK_tbl_MovieUser_tbl_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MovieStoreDBModel.tbl_Comment" Width="1.5" PointX="8.25" PointY="3.875" />
+        <AssociationConnector Association="MovieStoreDBModel.FK_tbl_Comment_tbl_Movie" />
+        <AssociationConnector Association="MovieStoreDBModel.FK_tbl_Comment_tbl_User" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

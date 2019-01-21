@@ -1,0 +1,37 @@
+﻿@model MovieStoreV4.Models.tbl_Category
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Yeni Kategori</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+
+
+    <br />
+    <div class="input-group col-md-4">
+        <span class="input-group-addon">Kategori İsmi </span>
+
+
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Kategori", required = "required" })
+
+    </div>
+    <br />
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Ekle" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Geri Dön", "Index")
+</div>

@@ -1,0 +1,115 @@
+﻿@model IEnumerable<MovieStoreV4.Models.tbl_User>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-3">
+        <ul class="list-group">
+            <li class="list-group-item active">
+                Kullanıcı Adı
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <ul class="list-group">
+            <li class="list-group-item active">
+                Email
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <ul class="list-group">
+            <li class="list-group-item active">
+                Telefon
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <ul class="list-group">
+            <li class="list-group-item active">
+                Aktiflik
+            </li>
+        </ul>
+    </div>
+
+
+</div>
+
+@foreach (var item in Model)
+{
+
+<div class="row">
+
+    <div class="col-md-3">
+
+        <ul class="list-group">
+
+
+            <li class="list-group-item">
+                @Html.ActionLink("Detay", "Detail", "UsersAdmin", new { id = item.ID }, new { @class = "btn btn-warning btn-xs" })
+
+                <span class="glyphicon glyphicon-user"> </span> @(item.Username)
+            </li>
+
+        </ul>
+    </div>
+    <div class="col-md-3">
+
+        <ul class="list-group">
+
+
+            <li class="list-group-item">
+
+                <span class="glyphicon glyphicon-envelope"> </span> @(item.Email)
+            </li>
+
+        </ul>
+    </div>
+    <div class="col-md-3">
+
+        <ul class="list-group">
+
+
+            <li class="list-group-item">
+
+                <span class="glyphicon glyphicon-phone"> </span> @(item.Phone)
+            </li>
+
+        </ul>
+    </div>
+    <div class="col-md-3">
+
+        <ul class="list-group">
+
+
+            <li class="list-group-item">
+
+                @if (item.Passive == true)
+                {
+                    <span class="glyphicon glyphicon-remove"> </span> <font color="red">  <b>Pasif  </b>   </font>
+                    @Html.ActionLink("Aktif Yap", "PassiveChange", "UsersAdmin", new { id = item.ID }, new { @class = "btn btn-success btn-xs" })
+                }
+                @if (item.Passive == false)
+                {
+                    <span class="glyphicon glyphicon-ok"> </span> <font color="green">  <b>Aktif  </b>   </font>
+                    if (item.AuthorizationID == 2) { 
+                  @Html.ActionLink("Pasif Yap", "PassiveChange", "UsersAdmin", new { id = item.ID }, new { @class = "btn btn-danger btn-xs" })
+                    }
+
+                }
+            </li>
+
+        </ul>
+    </div>
+
+</div>
+
+
+}
+
+
+

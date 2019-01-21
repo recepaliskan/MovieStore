@@ -1,0 +1,63 @@
+﻿@model MovieStoreV4.Models.tbl_Movie
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-horizontal">
+
+    <h1>@Model.Title</h1>
+
+
+    <hr>
+    <p>
+        <span class="glyphicon glyphicon-film"></span> @Model.tbl_Category.Name|
+        <span class="glyphicon glyphicon-comment"></span> @Model.tbl_Comment.Count()
+    </p>
+    <hr />
+    <!-- Preview Image -->
+
+   
+
+    <div class="">
+
+        <iframe style="width:100%" width="450" height="357" src="@Model.Teaser" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    </div>
+        <hr>
+    
+
+    
+
+    <p class="lead">
+        @Html.Raw(Model.Description)
+    </p>
+    <hr>
+
+    <br />
+    <div class="media">
+
+        <h2>Yorumlar</h2>
+        <hr />
+        @foreach (var item in Model.tbl_Comment.ToList())
+        {
+            <div class="well">
+                <a class="pull-left" href="#">
+
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        <strong> @item.tbl_User.Username</strong>
+                        <small>@item.Date</small>
+                    </h4>
+                    @item.Comment
+
+                    <a class="btn btn-danger" href="/Comment/AdminDeleteComment/@item.ID">Sil</a>
+
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

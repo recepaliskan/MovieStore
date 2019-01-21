@@ -1,0 +1,166 @@
+﻿@model MovieStoreV4.Models.tbl_Movie
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-8">
+
+    <h1>@Model.Title</h1>
+
+
+    <hr>
+    <p>
+        <span class="glyphicon glyphicon-film"></span> @Model.tbl_Category.Name|
+        <span class="glyphicon glyphicon-comment"></span> @Model.tbl_Comment.Count()
+    </p>
+    <hr />
+    <!-- Preview Image -->
+   
+    <iframe width="560" height="315" src="@Model.Teaser" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <hr>
+
+
+
+    <p class="lead">
+        @Html.Raw(Model.Description)
+    </p>
+    <hr>
+    @if (Session["UserID"] != null)
+    {
+        <div class="well">
+            <h4>Yorum Yap</h4>
+            <form role="form">
+                <div class="form-group">
+                    <textarea id="comment" typeof="text" class="form-control" rows="3"></textarea>
+                </div>
+                <button type="submit" id="commentSubmit" class="btn btn-primary">Yorum Ekle</button>
+            </form>
+        </div>
+    }
+    <br />
+    <div class="media"> 
+        <h2>Yorumlar</h2>
+    <hr />
+        @foreach (var item in Model.tbl_Comment.ToList())
+        {
+    <div class="well">
+        <a class="pull-left" href="#">
+
+        </a>
+        <div class="media-body">
+            <h4 class="media-heading">
+                <strong> @item.tbl_User.Username</strong>
+                <small>@item.Date</small>
+            </h4>
+            @item.Comment 
+                @if (Convert.ToInt32(Session["UserID"]) == item.UserID)
+                    {
+                        <a class="btn btn-danger" href="/Comment/Delete/@item.ID">Sil</a>
+                    }
+        </div>
+    </div>
+        }
+
+    </div>
+</div>
+<script src="~/Content/js/jquery.js"></script>
+<script src="~/Content/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#commentSubmit").click(function () {
+            var yourComment = $("#comment").val();
+
+            $.ajax({
+                url: '/Movies/Comment/',
+                data: { comment:yourComment, movieId:@Model.ID},
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+                    alert("Yorumunuz Gönderildi " + yourComment);}
+
+            });
+        });
+
+    })
+
+</script>
+
+
+
+
+
+
+@*<div>
+        <h4>tbl_Movie</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Image)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Image)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Buy)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Buy)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Cart)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Cart)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Comment)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Comment)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.tbl_Category.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbl_Category.Name)
+            </dd>
+
+        </dl>
+    </div>*@
+

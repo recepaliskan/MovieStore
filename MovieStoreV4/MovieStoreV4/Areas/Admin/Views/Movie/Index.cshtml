@@ -1,0 +1,73 @@
+﻿@model IEnumerable<MovieStoreV4.Models.tbl_Movie>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="text-align:center">Filmler</h2>
+
+<p>
+        @Html.ActionLink("Film Ekle", "Create", null, new { @class = " btn btn-success btn-lg pull-left" })
+   
+</p>
+<table class="table">
+    <tr>
+        <th >
+            Başlık
+        </th>
+        <th>
+           Açıklama
+        </th>
+        <th>
+           Resim
+        </th>
+        <th >
+            Fiyat
+        </th>
+       
+        <th>
+           Kategorisi
+        </th>
+        <th style="text-align:center">
+            İşlemler
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        @if (item.Description.Length > 10)
+        {
+            <td>
+                @Html.Raw(item.Description.Substring(0, 10))..
+            </td>
+        }
+        else
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+        }
+
+        <td class="center">
+            <img width="150" src="@item.Image" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.tbl_Category.Name)
+        </td>
+        <td style="text-align:center">
+            @Html.ActionLink("Düzenle", "Edit", new { id = item.ID }, new { @class = "btn btn-warning btn-xl" }) 
+            @Html.ActionLink("Detay", "Details", new { id = item.ID }, new { @class = "btn btn-info btn-xl" }) 
+            @Html.ActionLink("Sil", "Delete", new { id = item.ID }, new { @class = "btn btn-danger btn-xl" })
+        </td>
+    </tr>
+}
+
+</table>

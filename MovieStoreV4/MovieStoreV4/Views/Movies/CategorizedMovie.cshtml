@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MovieStoreV4.Models.tbl_Movie>
+@{
+    ViewBag.Title = "CategorizedMovie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="col-md-8">
+
+    @foreach (var item in Model)
+    {
+    <article class="col-md-4">
+        <a href="/Movies/Detail/@item.ID">
+            <img class="img-rounded" src="@item.Image" width="220" height="300" alt="@item.Title">
+        </a>
+        <hr />
+
+        <div class="pull-right">
+
+            @if (Session["UserID"] != null)
+                {
+                    int loginId = (int)Session["UserID"];
+                    if (item.tbl_MovieUser.Where(x=>x.UserID==loginId).Count()==1)
+                    {
+                        <a class="btn btn-danger" href="/Movies/Watch/@item.ID">İzle  <span class="glyphicon glyphicon-play"></span></a>
+
+                    }
+                    else
+                    {
+                        <a class="btn btn-default" href="/Movies/Buy/@item.ID">Satın Al <span class="glyphicon glyphicon-shopping-cart"></span></a>
+                    }
+
+
+                }
+                else
+                {
+                    <a class="btn btn-default" href="/User/Login/">Satın Al  <span class="glyphicon glyphicon-shopping-cart"></span></a>
+
+                }
+        </div>
+       
+            <p><span class="glyphicon glyphicon-film"></span><strong> @item.tbl_Category.Name</strong> </p>
+       
+            <p><span class="glyphicon glyphicon-comment"></span> @item.tbl_Comment.Count</p>
+        
+        @if (item.Description.Length > 15)
+        {
+            <p>@Html.Raw(item.Description.Substring(0, 15))..</p>
+        }
+        else
+        {
+            <p>@item.Description</p>
+        }
+        <hr>
+    </article>
+    }
+</div>

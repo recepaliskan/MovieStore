@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MovieStoreDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tbl_Authorization">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="tbl_User" Relationship="Self.FK_tbl_User_tbl_Authorization" FromRole="tbl_Authorization" ToRole="tbl_User" />
+  </EntityType>
+  <EntityType Name="tbl_Category">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="tbl_Movie" Relationship="Self.FK_tbl_Movie_tbl_Category" FromRole="tbl_Category" ToRole="tbl_Movie" />
+  </EntityType>
+  <EntityType Name="tbl_Movie">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Image" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="CategoryID" Type="Int32" />
+    <NavigationProperty Name="tbl_Category" Relationship="Self.FK_tbl_Movie_tbl_Category" FromRole="tbl_Movie" ToRole="tbl_Category" />
+    <NavigationProperty Name="tbl_MovieUser" Relationship="Self.FK_tbl_MovieUser_tbl_Movie" FromRole="tbl_Movie" ToRole="tbl_MovieUser" />
+    <NavigationProperty Name="tbl_Comment" Relationship="MovieStoreDBModel.FK_tbl_Comment_tbl_Movie" FromRole="tbl_Movie" ToRole="tbl_Comment" />
+    <Property Name="Teaser" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+    <Property Name="Video" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="tbl_MovieUser">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MovieID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tbl_Movie" Relationship="Self.FK_tbl_MovieUser_tbl_Movie" FromRole="tbl_MovieUser" ToRole="tbl_Movie" />
+    <NavigationProperty Name="tbl_User" Relationship="Self.FK_tbl_MovieUser_tbl_User" FromRole="tbl_MovieUser" ToRole="tbl_User" />
+  </EntityType>
+  <EntityType Name="tbl_User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AuthorizationID" Type="Int32" />
+    <NavigationProperty Name="tbl_Authorization" Relationship="Self.FK_tbl_User_tbl_Authorization" FromRole="tbl_User" ToRole="tbl_Authorization" />
+    <NavigationProperty Name="tbl_MovieUser" Relationship="Self.FK_tbl_MovieUser_tbl_User" FromRole="tbl_User" ToRole="tbl_MovieUser" />
+    <NavigationProperty Name="tbl_Comment" Relationship="MovieStoreDBModel.FK_tbl_Comment_tbl_User" FromRole="tbl_User" ToRole="tbl_Comment" />
+    <Property Name="Passive" Type="Boolean" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_tbl_User_tbl_Authorization">
+    <End Role="tbl_Authorization" Type="Self.tbl_Authorization" Multiplicity="0..1" />
+    <End Role="tbl_User" Type="Self.tbl_User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Authorization">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tbl_User">
+        <PropertyRef Name="AuthorizationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Movie_tbl_Category">
+    <End Role="tbl_Category" Type="Self.tbl_Category" Multiplicity="0..1" />
+    <End Role="tbl_Movie" Type="Self.tbl_Movie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Category">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tbl_Movie">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_MovieUser_tbl_Movie">
+    <End Role="tbl_Movie" Type="Self.tbl_Movie" Multiplicity="1" />
+    <End Role="tbl_MovieUser" Type="Self.tbl_MovieUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Movie">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tbl_MovieUser">
+        <PropertyRef Name="MovieID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_MovieUser_tbl_User">
+    <End Role="tbl_User" Type="Self.tbl_User" Multiplicity="1" />
+    <End Role="tbl_MovieUser" Type="Self.tbl_MovieUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tbl_MovieUser">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MovieStoreDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="tbl_Authorization" EntityType="Self.tbl_Authorization" />
+    <EntitySet Name="tbl_Category" EntityType="Self.tbl_Category" />
+    <EntitySet Name="tbl_Movie" EntityType="Self.tbl_Movie" />
+    <EntitySet Name="tbl_MovieUser" EntityType="Self.tbl_MovieUser" />
+    <EntitySet Name="tbl_User" EntityType="Self.tbl_User" />
+    <AssociationSet Name="FK_tbl_User_tbl_Authorization" Association="Self.FK_tbl_User_tbl_Authorization">
+      <End Role="tbl_Authorization" EntitySet="tbl_Authorization" />
+      <End Role="tbl_User" EntitySet="tbl_User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Movie_tbl_Category" Association="Self.FK_tbl_Movie_tbl_Category">
+      <End Role="tbl_Category" EntitySet="tbl_Category" />
+      <End Role="tbl_Movie" EntitySet="tbl_Movie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_MovieUser_tbl_Movie" Association="Self.FK_tbl_MovieUser_tbl_Movie">
+      <End Role="tbl_Movie" EntitySet="tbl_Movie" />
+      <End Role="tbl_MovieUser" EntitySet="tbl_MovieUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_MovieUser_tbl_User" Association="Self.FK_tbl_MovieUser_tbl_User">
+      <End Role="tbl_User" EntitySet="tbl_User" />
+      <End Role="tbl_MovieUser" EntitySet="tbl_MovieUser" />
+    </AssociationSet>
+    <EntitySet Name="tbl_Comment" EntityType="MovieStoreDBModel.tbl_Comment" />
+    <AssociationSet Name="FK_tbl_Comment_tbl_Movie" Association="MovieStoreDBModel.FK_tbl_Comment_tbl_Movie">
+      <End Role="tbl_Movie" EntitySet="tbl_Movie" />
+      <End Role="tbl_Comment" EntitySet="tbl_Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Comment_tbl_User" Association="MovieStoreDBModel.FK_tbl_Comment_tbl_User">
+      <End Role="tbl_User" EntitySet="tbl_User" />
+      <End Role="tbl_Comment" EntitySet="tbl_Comment" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="tbl_Comment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="MovieID" Type="Int32" />
+    <NavigationProperty Name="tbl_Movie" Relationship="MovieStoreDBModel.FK_tbl_Comment_tbl_Movie" FromRole="tbl_Comment" ToRole="tbl_Movie" />
+    <NavigationProperty Name="tbl_User" Relationship="MovieStoreDBModel.FK_tbl_Comment_tbl_User" FromRole="tbl_Comment" ToRole="tbl_User" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+  </EntityType>
+  <Association Name="FK_tbl_Comment_tbl_Movie">
+    <End Type="MovieStoreDBModel.tbl_Movie" Role="tbl_Movie" Multiplicity="0..1" />
+    <End Type="MovieStoreDBModel.tbl_Comment" Role="tbl_Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Movie">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tbl_Comment">
+        <PropertyRef Name="MovieID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Comment_tbl_User">
+    <End Type="MovieStoreDBModel.tbl_User" Role="tbl_User" Multiplicity="0..1" />
+    <End Type="MovieStoreDBModel.tbl_Comment" Role="tbl_Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tbl_Comment">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

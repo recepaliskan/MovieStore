@@ -1,0 +1,42 @@
+﻿@model MovieStoreV4.Models.tbl_User
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="well col-md-8">
+    <h4>Profil</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Kullanıcı Adın:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+        @if (Model.Phone != null)
+        {
+            <dt>
+                Telefon
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+        }
+        @if (Model.Email != null)
+        {
+            <dt>
+                Email
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+        }
+
+    </dl>
+    <p>
+        @Html.ActionLink("Güncelle", "Edit", new { id = Model.ID }) |
+    </p>
+</div>

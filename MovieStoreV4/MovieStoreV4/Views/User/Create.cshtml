@@ -1,0 +1,68 @@
+﻿@model MovieStoreV4.Models.tbl_User
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal col-md-8">
+
+    
+    <div class="well">
+        <div class="input-group col-md-4">
+            <label class="user"> Kullanıcı Adı  </label>
+            <div class="input-group">
+                <span class="input-group-addon" id="iconn"> <i class="glyphicon glyphicon-user"></i></span>
+                @Html.TextBoxFor(model => model.Username, new { @class = "form-control", placeholder = "kullanıcı adı", required = "required" })
+
+            </div>
+            </div>
+            <br />
+            <div class="input-group col-md-4">
+                <label class="user"> Şifre </label>
+                <div class="input-group">
+                    <span class="input-group-addon" id="iconn1"> <i class="glyphicon glyphicon-lock"></i></span>
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Şifre", required = "required" })
+
+                </div>
+                </div>
+                <br />
+                <div class="input-group col-md-4">
+                    <label class="user"> Şifre </label>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="iconn1"> <i class="glyphicon glyphicon-phone"></i></span>
+                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control bfh-phone", placeholder = "telefon numaranız", required = "required" })
+
+                    </div>
+                    </div>
+                    <br />
+                    <div class="input-group col-md-4">
+                        <label class="user"> Şifre </label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="iconn1"> <i class="glyphicon glyphicon-envelope"></i></span>
+
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "example@gmail.com", type = "email", required = "required" })
+
+                        </div>
+                        </div>
+                        <br />
+
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Kayıt Ol" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+</div>
+}
+
+

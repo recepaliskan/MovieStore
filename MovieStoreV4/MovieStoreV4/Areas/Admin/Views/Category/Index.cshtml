@@ -1,0 +1,40 @@
+﻿@model IEnumerable<MovieStoreV4.Models.tbl_Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Kategoriler</h2>
+
+<p>
+    @Html.ActionLink("Yeni Kategori", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Kategori
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Düzenle", "Edit", new { id = item.ID }) |
+            @if (item.tbl_Movie.Where(m => m.CategoryID == m.tbl_Category.ID).Count() >0)
+            {
+                <font color="red">Önce bu kategoriye ait filmleri siliniz.</font>
+            }
+            else
+            {
+                @Html.ActionLink("Sil", "Delete", new { id = item.ID })
+            }
+        </td>
+    </tr>
+}
+
+</table>

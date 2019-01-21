@@ -1,0 +1,38 @@
+﻿@model IEnumerable<MovieStoreV4.Models.tbl_MovieUser>
+
+@{
+    ViewBag.Title = "BuyMovies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-8">
+
+    @foreach (var item in Model)
+    {<article class="col-md-4">
+
+
+    <a href="/Movies/Detail/@item.tbl_Movie.ID">
+        <img class="img-rounded" src="@item.tbl_Movie.Image" width="220" height="300" alt="@item.tbl_Movie.Title">
+    </a>
+    <hr />
+    <div class="pull-right">
+        <a class="btn btn-danger" href="/Movies/Watch/@item.MovieID">İzle <span class="glyphicon glyphicon-play"></span></a>
+    </div>
+
+    <p><span class="glyphicon glyphicon-film"></span><strong> @item.tbl_Movie.tbl_Category.Name</strong> </p>
+    <p><span class="glyphicon glyphicon-comment"></span> @item.tbl_Movie.tbl_Comment.Count()</p>
+
+    @if (item.tbl_Movie.Description.Length > 15)
+    {
+        <p>@Html.Raw(item.tbl_Movie.Description.Substring(0, 15))..</p>
+    }
+    else
+    {
+        <p>@item.tbl_Movie.Description</p>
+    }
+    <hr>
+</article>
+
+
+    }
+</div>
