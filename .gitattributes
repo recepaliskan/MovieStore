@@ -1,11 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
-MovieStoreV4/Content/js/* linguist-vendored
-
-MovieStoreV4/Content/PagedList.css/* linguist-vendored
-packages/PagedList.Mvc.4.5.0.0/Content/Content/PagedList.css/* linguist-vendored
-MovieStoreV4/Content/Site.css/* linguist-vendored
-MovieStoreV4/Content/bootstrap.css/* linguist-vendored
-
-MovieStoreV4/Views/* linguist-vendored
+MovieStoreV4/Content/* linguist-vendored
+MovieStoreV4/Scripts/* linguist-vendored
