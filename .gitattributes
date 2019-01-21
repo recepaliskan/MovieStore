@@ -1,4 +1,4 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
-MovieStore/MovieStoreV4/Views/* linguist-vendored
+MovieStoreV4/Content/js/* linguist-vendored
