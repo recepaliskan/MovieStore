@@ -3,6 +3,6 @@
 
 MovieStoreV4/Content/js/* linguist-vendored
 
-MovieStoreV4/Content/css/* linguist-vendored
+MovieStoreV4/Content/* linguist-vendored
 MovieStoreV4/Areas/Admin/Views/* linguist-vendored
 MovieStoreV4/Views/* linguist-vendored
